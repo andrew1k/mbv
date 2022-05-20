@@ -48,6 +48,22 @@ const routes = [
       layout: 'main',
       auth: true,
     }
+  },{
+    path: '/telegramUsers',
+    name: 'TelegramUsers',
+    component: () => import('@/views/users/TelegramUsers'),
+    meta: {
+      layout: 'main',
+      auth: true,
+    }
+  },{
+    path: '/appUsers',
+    name: 'AppUsers',
+    component: () => import('@/views/users/AppUsers'),
+    meta: {
+      layout: 'main',
+      auth: true,
+    }
   },
   {
     path: '/auth',

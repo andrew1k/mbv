@@ -15,28 +15,30 @@
               </li>
             </ul>
             <div class="card-body p-4">
-              <div class="form-outline my-2">
+              <div class="form-outline py-2 my-4">
+                <MDBInput label="Email" type="email" v-model="eValue" @blur="eBlur" />
+<!--                <input-->
+<!--                    class="form-control"-->
+<!--                    type="email"-->
+<!--                    id="email"-->
+<!--                    placeholder="Email"-->
+<!--                    v-model="eValue"-->
+<!--                    @blur="eBlur">-->
+<!--                <label class="form-label" for="email">Email</label>-->
                 <small v-if="eError" class="text-danger">{{ eError }}</small>
-                <input
-                    class="form-control"
-                    type="email"
-                    id="email"
-                    placeholder="Email"
-                    v-model="eValue"
-                    @blur="eBlur">
-                <label class="form-label" for="email">Email</label>
               </div>
 
-              <div class="form-outline my-2">
+              <div class="form-outline py-2 my-4">
+                <MDBInput label="Пароль" type="password" v-model="pValue" @blur="pBlur" />
+<!--                <input-->
+<!--                    class="form-control"-->
+<!--                    type="password"-->
+<!--                    id="password"-->
+<!--                    placeholder="Пароль"-->
+<!--                    v-model="pValue"-->
+<!--                    @blur="pBlur">-->
+<!--                <label class="form-label" for="password">Пароль</label>-->
                 <small v-if="pError" class="text-danger">{{ pError }}</small>
-                <input
-                    class="form-control"
-                    type="password"
-                    id="password"
-                    placeholder="Пароль"
-                    v-model="pValue"
-                    @blur="pBlur">
-                <label class="form-label" for="password">Пароль</label>
               </div>
               <div class="row align-items-end align-content-end text-end mb-0">
                 <!-- отключается во время isSubmitting и при многом повторении -->
@@ -68,6 +70,8 @@ import {useRouter} from "vue-router";
 import {useField, useForm} from "vee-validate";
 import * as yup from "yup";
 import {computed, watch} from "vue";
+import {MDBInput} from 'mdb-vue-ui-kit'
+
 
 export default {
   setup() {
@@ -116,6 +120,8 @@ export default {
       onSubmit, isSubmitting,
       isTooAttempts,
     }
+  }, components: {
+    MDBInput,
   }
 }
 </script>

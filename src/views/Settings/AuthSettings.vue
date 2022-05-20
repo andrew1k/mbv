@@ -1,12 +1,12 @@
 <template>
-  <div class="m-2 p-2 bg-light" style="border-radius: 8px">
-    <div class="row p-2">
+  <div class="my-1 p-3 bg-white" style="border-radius: 8px">
+    <div class="row">
       <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
         <settings-menu auth-prop="true"></settings-menu>
       </div>
       <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
         <div class="row">
-          <div class="col px-3">
+          <div class="col p-3">
             <h4>Настройки авторизации</h4>
           </div>
         </div>
@@ -14,37 +14,42 @@
           <change-email></change-email>
         </div>
         <div class="row p-2">
-          <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 p-2">
             <h5>Изменить пароль</h5>
             <form @submit="changePassword">
-              <div class="row p-2">
-              <label for="password" class="form-label">Старый пароль</label>
-              <input type="password"
-                     class="form-control"
-                     id="password"
-                     placeholder="Старый пароль"
-                     v-model="pValue"
-                     @blur="pBlur"
-              >
-              <small v-if="pError" class="text-danger">{{pError}}</small>
+              <div class="row">
+                <div class="col p-2">
+                  <label for="password" class="form-label">Старый пароль</label>
+                  <input type="password"
+                         class="form-control"
+                         id="password"
+                         placeholder="Старый пароль"
+                         v-model="pValue"
+                         @blur="pBlur"
+                  >
+                  <small v-if="pError" class="text-danger">{{ pError }}</small>
+                </div>
               </div>
-              <div class="row p-2">
-              <label for="password2" class="form-label">Новый пароль</label>
-              <input type="password"
-                     class="form-control"
-                     id="password2"
-                     placeholder="Новый пароль"
-                     v-model="newpValue"
-                     @blur="newpBlur"
-              >
-              <small v-if="newpError" class="text-danger">{{newpError}}</small>
+              <div class="row">
+                <div class="col p-2">
+                  <label for="password2" class="form-label">Новый пароль</label>
+                  <input type="password"
+                         class="form-control"
+                         id="password2"
+                         placeholder="Новый пароль"
+                         v-model="newpValue"
+                         @blur="newpBlur"
+                  >
+                  <small v-if="newpError" class="text-danger">{{ newpError }}</small>
+                </div>
               </div>
-              <div class="row py-2">
-                <div class="col">
+              <div class="row">
+                <div class="col p-2">
                   <button
                       class="btn bg-warning px-3"
                       :disabled="isTooAttempts || isSubmitting || pError || newpError"
-                  >Сохранить</button>
+                  >Сохранить
+                  </button>
                 </div>
               </div>
             </form>
@@ -92,10 +97,15 @@ export default {
     // Баг при перезагрузке страницы теряется setTimeout
     // слежение за переменной isTooAttempts и ограничение submit при лимите(5 макс)
     watch(isTooAttempts, value => {
-      if (value) {setTimeout(() => {submitCount.value = 0}, 1800000)}})
+      if (value) {
+        setTimeout(() => {
+          submitCount.value = 0
+        }, 1800000)
+      }
+    })
     return {
-      pValue,pBlur,pError,
-      newpValue,newpBlur,newpError,
+      pValue, pBlur, pError,
+      newpValue, newpBlur, newpError,
       changePassword,
       isTooAttempts, isSubmitting
     }

@@ -1,12 +1,12 @@
 <template>
-  <div class="m-2 p-2 bg-light" style="border-radius: 8px">
-    <div class="row p-2">
+  <div class="my-1 p-3 bg-white" style="border-radius: 8px">
+    <div class="row">
       <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
         <settings-menu del-prop="true"></settings-menu>
       </div>
       <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
         <div class="row">
-          <div class="col px-3">
+          <div class="col p-3">
             <h4>Удаление аккаунта</h4>
           </div>
         </div>
@@ -27,13 +27,13 @@
               <input type="password"
                      class="form-control"
                      id="password"
-                     placeholder="Старый пароль"
+                     placeholder="Пароль"
                      v-model="pValue"
                      @blur="pBlur"
               >
               <small v-if="pError" class="text-danger">{{ pError }}</small>
             </div>
-            <div class="row p-2">
+            <div class="row py-1">
               <div class="col">
                 <button class="btn bg-danger px-3" type="submit">Удалить</button>
               </div>

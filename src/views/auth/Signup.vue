@@ -17,73 +17,82 @@
               </li>
             </ul>
             <div class="card-body p-4">
-              <div class="my-3">
-              <small class="text-danger" v-if="firstNameError">{{ firstNameError }}</small>
-              <input
-                  class="form-control"
-                  type="text"
-                  id="firstName"
-                  placeholder="Имя"
-                  v-model="firstNameValue"
-                  @blur="firstNameBlur">
-              <label class="text-black form-label" for="firstName">Ваше имя</label>
+              <div class="my-5">
+                <MDBInput label="Ваше имя" type="text" v-model="firstNameValue" @blur="firstNameBlur"/>
+                <small class="text-danger" v-if="firstNameError">{{ firstNameError }}</small>
+                <!--              <input-->
+                <!--                  class="form-control"-->
+                <!--                  type="text"-->
+                <!--                  id="firstName"-->
+                <!--                  placeholder="Имя"-->
+                <!--                  v-model="firstNameValue"-->
+                <!--                  @blur="firstNameBlur">-->
+                <!--              <label class="text-black form-label" for="firstName">Ваше имя</label>-->
               </div>
 
-            <div class="my-3">
-              <small v-if="secondNameError" class="text-danger">{{ secondNameError }}</small>
-              <input
-                  class="form-control"
-                  type="text"
-                  id="secondName"
-                  placeholder="Фамилия"
-                  v-model="secondNameValue"
-                  @blur="secondNameBlur">
-              <label for="secondName" class="text-black">Ваша фамилия</label>
-            </div>
-            <div class="my-3">
-              <small v-if="birthDateError" class="text-danger">{{ birthDateError }}</small>
-              <input
-                  class="form-control"
-                  type="date"
-                  id="birthDate"
-                  v-model="birthDateValue"
-                  @blur="birthDateBlur">
-              <label for="birthDate" class="text-black">Ваш день рождения</label>
-            </div>
-            <div class="my-3">
-              <small v-if="eError" class="text-danger">{{ eError }}</small>
-              <input
-                  class="form-control"
-                  type="email"
-                  id="email"
-                  placeholder="Email"
-                  v-model="eValue"
-                  @blur="eBlur">
-              <label for="email" class="text-black">Ваш Email</label>
-            </div>
-            <div class="my-3">
-              <small v-if="pError" class="text-danger">{{ pError }}</small>
-              <input
-                  class="form-control"
-                  type="password"
-                  id="password"
-                  placeholder="Пароль"
-                  v-model="pValue"
-                  @blur="pBlur">
-              <label for="password" class="text-black">Придумайте пароль</label>
-            </div>
-<!--              <div class="form-check d-flex mb-4">-->
-<!--                <input class="form-check-input me-2"-->
-<!--                       type="checkbox"-->
-<!--                       id="registerCheck"-->
-<!--                       v-model="checked"-->
-<!--                       aria-describedby="registerCheckHelpText" />-->
-<!--                <label class="form-check-label text-black" for="registerCheck">-->
-<!--                  Я даю согласие на хранение и обработку данных-->
-<!--                </label>-->
-<!--              </div>-->
+              <div class="my-5 ">
+                <MDBInput label="Ваша фамилия" type="text" v-model="secondNameValue" @blur="secondNameBlur"/>
+                <small v-if="secondNameError" class="text-danger">{{ secondNameError }}</small>
+                <!--              <input-->
+                <!--                  class="form-control"-->
+                <!--                  type="text"-->
+                <!--                  id="secondName"-->
+                <!--                  placeholder="Фамилия"-->
+                <!--                  v-model="secondNameValue"-->
+                <!--                  @blur="secondNameBlur">-->
+                <!--              <label for="secondName" class="text-black">Ваша фамилия</label>-->
+              </div>
+              <div class="my-5">
+                <MDBInput label="День рождения" type="date" v-model="birthDateValue" @blur="birthDateBlur"/>
+                <small v-if="birthDateError" class="text-danger">{{ birthDateError }}</small>
+                <!--              <input-->
+                <!--                  class="form-control"-->
+                <!--                  type="date"-->
+                <!--                  id="birthDate"-->
+                <!--                  v-model="birthDateValue"-->
+                <!--                  @blur="birthDateBlur">-->
+                <!--              <label for="birthDate" class="text-black">Ваш день рождения</label>-->
+              </div>
+              <div class="my-5">
+                <MDBInput label="Ваш Email" type="email" v-model="eValue" @blur="eBlur"/>
+                <small v-if="eError" class="text-danger">{{ eError }}</small>
+                <!--              <input-->
+                <!--                  class="form-control"-->
+                <!--                  type="email"-->
+                <!--                  id="email"-->
+                <!--                  placeholder="Email"-->
+                <!--                  v-model="eValue"-->
+                <!--                  @blur="eBlur">-->
+                <!--              <label for="email" class="text-black">Ваш Email</label>-->
+              </div>
+              <div class="my-5">
+                <MDBInput label="Придумайте пароль" type="password" v-model="pValue" @blur="pBlur"/>
+                <small v-if="pError" class="text-danger">{{ pError }}</small>
+                <!--              <input-->
+                <!--                  class="form-control"-->
+                <!--                  type="password"-->
+                <!--                  id="password"-->
+                <!--                  placeholder="Пароль"-->
+                <!--                  v-model="pValue"-->
+                <!--                  @blur="pBlur">-->
+                <!--              <label for="password" class="text-black">Придумайте пароль</label>-->
+              </div>
+              <div class="my-5 text-black">
+                <MDBCheckbox label="Согласен" v-model="checkbox" id="checkbox" wrapperClass="mb-3 mb-md-0"/>
+                <!--                <input class="form-check-input me-2"-->
+                <!--                       type="checkbox"-->
+                <!--                       id="registerCheck"-->
+                <!--                       v-model="checked"-->
+                <!--                       aria-describedby="registerCheckHelpText" />-->
+                <!--                <label class="form-check-label text-black" for="registerCheck">-->
+                <!--                  Я даю согласие на хранение и обработку данных-->
+                <!--                </label>-->
+              </div>
 
-            <button class="btn text-black px-4 bg-warning" type="submit" :disabled="birthDateError || eError || pError || firstNameError || secondNameError">Зарегистрироваться</button>
+              <button class="btn text-black px-4 bg-warning" type="submit"
+                      :disabled="birthDateError || eError || pError || firstNameError || secondNameError || !checkbox">
+                Зарегистрироваться
+              </button>
 
             </div>
           </form>
@@ -98,6 +107,8 @@ import {useStore} from "vuex";
 import {useRouter} from "vue-router";
 import {useField, useForm} from "vee-validate";
 import * as yup from "yup";
+import {MDBInput, MDBCheckbox} from 'mdb-vue-ui-kit';
+import {ref} from "vue";
 
 export default {
   setup() {
@@ -136,10 +147,9 @@ export default {
         yup.date().required('Это поле обязательно'))
 
 
-
     // const {checked} = useField('checkbox', undefined, {type:'checkbox', checkedValue:false, uncheckedValue:false, validateOnMount:true})
     // console.log(checked)
-
+    const checkbox = ref(false)
 
 
     const onSubmit = handleSubmit(async values => {
@@ -152,8 +162,10 @@ export default {
       secondNameValue, secondNameError, secondNameBlur,
       birthDateValue, birthDateError, birthDateBlur,
       onSubmit, isSubmitting,
-
+      checkbox
     }
+  }, components: {
+    MDBInput, MDBCheckbox
   }
 }
 </script>

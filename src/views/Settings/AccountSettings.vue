@@ -1,19 +1,19 @@
 <template>
-  <div class="m-2 p-2 bg-white" style="border-radius: 8px">
-    <div class="row p-2">
+  <div class="my-1 p-3 bg-white" style="border-radius: 8px">
+    <div class="row">
       <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
         <settings-menu acc-prop="true"></settings-menu>
       </div>
       <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
         <div class="row">
-          <div class="col px-3">
+          <div class="col p-3">
             <h4>Настройки профиля</h4>
             <p>Вы можете добавить информацию о себе или изменить существующую</p>
           </div>
         </div>
         <form @submit="onSubmit">
-          <div class="row p-2">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+          <div class="row px-2">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 p-2">
               <label for="firstName" class="form-label">Имя</label>
               <input type="text"
                      class="form-control"
@@ -23,7 +23,7 @@
               >
               <small v-if="firstNameError" class="text-danger">{{firstNameError}}</small>
             </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 p-2">
               <label for="secondName" class="form-label">Фамилия</label>
               <input type="text"
                      class="form-control"
@@ -35,8 +35,8 @@
               <small v-if="secondNameError" class="text-danger">{{secondNameError}}</small>
             </div>
           </div>
-          <div class="row p-2">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+          <div class="row px-2">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 p-2">
               <label for="phoneNumber" class="form-label">Телофон</label>
               <input type="text"
                      class="form-control"
@@ -46,7 +46,7 @@
               >
               <small v-if="phoneNumberError" class="text-danger">{{phoneNumberError}}</small>
             </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 p-2">
               <label for="birthDate" class="form-label">Дата рождения</label>
               <input type="date"
                      class="form-control"
@@ -57,16 +57,16 @@
               <small v-if="birthDateError" class="text-danger">{{birthDateError}}</small>
             </div>
           </div>
-          <div class="row p-2">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+          <div class="row px-2">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 p-2">
               <label for="email" class="form-label">Email</label>
               <input type="email" class="form-control" id="email" disabled v-model="email">
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
             </div>
           </div>
-          <div class="row p-2">
-            <div class="col">
+          <div class="row px-2">
+            <div class="col px-2 py-3">
               <button class="btn bg-warning px-3" type="submit">Сохранить</button>
             </div>
           </div>

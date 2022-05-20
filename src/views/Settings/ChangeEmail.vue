@@ -1,8 +1,9 @@
 <template>
-  <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+  <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 p-2">
     <h5>Изменить email</h5>
     <form @submit="changeEmail">
-      <div class="row p-2">
+      <div class="row">
+        <div class="col p-2">
         <label for="email" class="form-label">Введите новый Email</label>
         <input type="text"
                class="form-control"
@@ -11,9 +12,10 @@
                @blur="eBlur"
         >
         <small v-if="eError" class="text-danger">{{eError}}</small>
+        </div>
       </div>
-      <div class="row py-2">
-        <div class="col">
+      <div class="row">
+        <div class="col p-2">
           <button
               class="btn bg-warning px-3"
               :disabled="eError || isSubmitting"

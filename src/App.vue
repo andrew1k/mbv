@@ -31,4 +31,7 @@ body {
 .bg-warning {
   background: #FFA10D;
 }
+#app {
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+}
 </style>
