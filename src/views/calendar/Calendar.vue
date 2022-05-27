@@ -1,11 +1,119 @@
 <template>
-  <div class="m-2 p-2 bg-light" style="border-radius: 8px">
+  <div class="m-2 p-2 bg-white" style="border-radius: 8px">
     <div class="row">
       <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-        <div class="row">
-          <div class="col-3">
-
+        <v-date-picker
+            v-model="date"
+            :columns="$screens({ default: 1, lg: 2 })"
+            :rows="$screens({ default: 1, lg: 2 })"
+            :is-expanded="$screens({ default: true, lg: false })"
+            :min-date='new Date()'
+            :attributes='attrs'
+            @dayclick='dayClicked'
+        ></v-date-picker>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
+        <div class="row px-3">
+          <div class="col py-3">
+            <h4>Создать задачу</h4>
+            <p>Вы можете добавить задачу или изменить существующую</p>
           </div>
+          <v-date-picker
+              class="py-1"
+              v-model="date"
+              :min-date='new Date()'
+              :attributes='scheduledTasks'
+              @dayclick='dayClicked'
+          >
+            <template v-slot="{ inputValue, inputEvents, togglePopover }">
+              <input
+                  class="bg-white border px-2 py-1 rounded"
+                  :value="inputValue"
+                  @click="togglePopover"
+              />
+            </template>
+          </v-date-picker>
+          <form class="py-3" @submit.prevent="onSumbit">
+            <MDBInput
+                type="text"
+                label="Название задачи"
+                id="nameTaskMain"
+                v-model="nameTask"
+                wrapperClass="mb-4"
+            />
+            <MDBInput
+                type="text"
+                label="Ответственный"
+                id="responsibleMain"
+                v-model="responsible"
+                wrapperClass="mb-4"
+            />
+            <MDBTextarea
+                type="text"
+                label="Описание задачи"
+                id="descriptionTaskMain"
+                v-model="descriptionTask"
+                wrapperClass="mb-4"
+            />
+            <MDBCol auto>
+              <MDBBtn
+                  color="btn bg-warning"
+                  type="submit"
+              >Сохранить
+              </MDBBtn>
+            </MDBCol>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="m-2 p-2 bg-white" style="border-radius: 8px">
+    <div class="row px-3 py-2">
+      <div class="col py-3">
+        <h4>Задачи на {{ dateForm }} </h4>
+        <p>Вы можете изменить задачу или удалить</p>
+      </div>
+      <div class="row d-flex justify-content-around">
+        <form class="py-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+          <MDBInput
+              type="text"
+              label="Название задачи"
+              id="nameTask"
+              v-model="nameTask"
+              wrapperClass="mb-4"
+          />
+          <MDBInput
+              type="text"
+              label="Ответственный"
+              id="responsible"
+              v-model="responsible"
+              wrapperClass="mb-4"
+          />
+          <MDBTextarea
+              type="text"
+              label="Описание задачи"
+              id="descriptionTask"
+              v-model="descriptionTask"
+              wrapperClass="mb-4"
+          />
+          <div class="d-flex flex-column">
+            <MDBCol auto>
+              <MDBBtn color="btn bg-warning">Сохранить изменения</MDBBtn>
+            </MDBCol>
+            <MDBCol auto class="py-3">
+              <MDBBtn color="btn btn-danger">Удалить</MDBBtn>
+            </MDBCol>
+          </div>
+        </form>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+          <h5 class="py-2">Сделать календарь</h5>
+          <h5 class="py-2">Слава Чирков</h5>
+          <h6 class="py-2 blockSize">Нужно сделать календарь с заметками событий. Нужно чтобы был выбор даты, название
+            задачи,
+            кто отвечает за задачу, описание задачи</h6>
+          <MDBCol auto>
+            <MDBBtn color="btn bg-warning">Изменить</MDBBtn>
+          </MDBCol>
         </div>
       </div>
     </div>
@@ -13,12 +121,98 @@
 </template>
 
 <script>
+import {MDBBtn, MDBCheckbox, MDBCol, MDBInput, MDBTextarea,} from "mdb-vue-ui-kit";
+import {ref, watch, computed} from "vue";
+import {useStore} from "vuex";
+import {useField, useForm} from "vee-validate";
+
+
 export default {
+  components: {
+    MDBInput,
+    MDBCheckbox,
+    MDBBtn,
+    MDBTextarea,
+    MDBCol,
+  },
+  setup() {
+    // Работа с календарями
+    const date = new Date();
+    const attrs = ref([
+      {
+        key: 'today',
+        highlight: "red",
+        dates: new Date(),
+      },
+      {
+        dot: true,
+        dates: [
+          new Date(2022, 4, 10),
+          new Date(2022, 4, 30),
+          new Date(2022, 5, 7),
+        ],
+      }
+    ])
+    const scheduledTasks = ref([
+      {
+        dot: true,
+        dates: [
+          new Date(2022, 4, 10),
+          new Date(2022, 4, 30),
+          new Date(2022, 5, 7),
+        ],
+      }
+    ])
+    let dateForm = date.toLocaleDateString();
+    const selectedDay = ref(null)
+    function dayClicked(day) {
+      selectedDay.value = day
+    }
+    watch(selectedDay, (newValue, oldValue) => {
+      console.log(selectedDay)
+    })
+    // const connectingCalendars = computed(() => date.value = selectedDay.value)
 
+
+    // Отправка данныз на сервер
+    const {handleSubmit} = useForm()
+    const nameInCharge = ref("");
+    const store = useStore();
+    // const {selectedDay.value} = useField('date')
+    const {value: nameTask} = useField('nameTask')
+    const {value: responsible} = useField('responsible')
+    const {value: descriptionTask} = useField('descriptionTask')
+    const onSumbit = handleSubmit(async values => {
+      await store.dispatch('tasks/noteInCalendar', values)
+    })
+
+
+    return {
+      nameTask,
+      nameInCharge,
+      descriptionTask,
+      responsible,
+      date,
+      onSumbit,
+      attrs,
+      dateForm,
+      scheduledTasks,
+      selectedDay,
+      dayClicked,
+      // connectingCalendars,
+    };
+  }
+  ,
 }
-
+;
 </script>
 
 <style scoped>
-
+.blockSize {
+  height: 7em;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+}
 </style>
