@@ -101,7 +101,7 @@ export default {
                 await commit('setPhoneNumber', dbData.phoneNumber)
                 await commit('setBirthDate', dbData.birthDate)
             } catch (e) {
-                console.log('from signup: \n' + e)
+                console.log(e)
                 alert('Что-то пошло не так, проверте правильность введенных вами данных')
             }
         },

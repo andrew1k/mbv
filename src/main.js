@@ -6,6 +6,8 @@ import store from './store'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 import 'mdb-vue-ui-kit/css/mdb.min.css';
+import 'v-calendar/dist/style.css';
+import VCalendar from "v-calendar";
 
 
-createApp(App).use(store).use(router).mount('#app')
+createApp(App).use(VCalendar, {}).use(store).use(router).mount('#app')
