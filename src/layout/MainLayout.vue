@@ -1,6 +1,5 @@
 <template>
   <the-navbar></the-navbar>
-  <the-sidebar></the-sidebar>
   <div class="container-fluid">
     <router-view />
   </div>
@@ -8,10 +7,9 @@
 
 <script>
 import TheNavbar from "@/components/TheNavbar";
-import TheSidebar from "@/components/TheSidebar";
 export default {
   components: {
-    TheNavbar, TheSidebar
+    TheNavbar,
   }
 }
 </script>
