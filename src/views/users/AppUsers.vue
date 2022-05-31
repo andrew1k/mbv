@@ -15,7 +15,7 @@
       </tr>
       </thead>
       <tbody>
-      <app-table-row for-app-users="true"></app-table-row>
+      <app-table-row for-app-users="true" app-users="AppUsers"></app-table-row>
       </tbody>
     </MDBTable>
   </div>
@@ -29,18 +29,22 @@ import {
   MDBIcon
 } from 'mdb-vue-ui-kit';
 import AppTableRow from "@/components/AppTableRow";
+import axios from "axios";
 
 export default {
-  setup() {
+  setup(props, context) {
+    const appUsers = []
     const loadUsers = async () => {
       // const {data} = await axios.get(`${process.env.VUE_APP_DB_URL}/appUsers.json`)
-      // this.users = Object.keys(data).map(key => {
-      //   return {key: key ,...data[key]}
-      // })
-
+      console.log(data)
+      props.appUsers = Object.keys(data).map(key => {
+        return {key: key ,...data[key]}
+      })
     }
+    console.log(appUsers)
     return {
-      loadUsers
+      loadUsers,
+      appUsers,
     }
   },
   components: {
