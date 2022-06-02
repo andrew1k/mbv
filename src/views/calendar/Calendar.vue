@@ -7,9 +7,9 @@
             :columns="$screens({ default: 1, lg: 2 })"
             :rows="$screens({ default: 1, lg: 2 })"
             :is-expanded="$screens({ default: true, lg: false })"
-            :min-date='new Date()'
-            :attributes='attrs'
-            @dayclick='dayClicked'
+            :min-date="new Date()"
+            :attributes="attrs"
+            @dayclick="dayClicked"
         ></v-date-picker>
       </div>
       <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
@@ -21,9 +21,9 @@
           <v-date-picker
               class="py-1"
               v-model="date"
-              :min-date='new Date()'
-              :attributes='scheduledTasks'
-              @dayclick='dayClicked'
+              :min-date="new Date()"
+              :attributes="scheduledTasks"
+              @dayclick="dayClicked"
           >
             <template v-slot="{ inputValue, inputEvents, togglePopover }">
               <input
@@ -33,7 +33,7 @@
               />
             </template>
           </v-date-picker>
-          <form class="py-3" @submit.prevent="onSumbit">
+          <form class="py-3" @submit.prevent="onSubmit">
             <MDBInput
                 type="text"
                 label="Название задачи"
@@ -44,8 +44,8 @@
             <MDBInput
                 type="text"
                 label="Ответственный"
-                id="responsibleMain"
-                v-model="responsible"
+                id="responsiblePerson"
+                v-model="responsiblePerson"
                 wrapperClass="mb-4"
             />
             <MDBTextarea
@@ -70,7 +70,7 @@
   <div class="m-2 p-2 bg-white" style="border-radius: 8px">
     <div class="row px-3 py-2">
       <div class="col py-3">
-        <h4>Задачи на {{ dateForm }} </h4>
+        <h4>Задачи на {{ selectedDay.id }} </h4>
         <p>Вы можете изменить задачу или удалить</p>
       </div>
       <div class="row d-flex justify-content-around">
@@ -86,7 +86,7 @@
               type="text"
               label="Ответственный"
               id="responsible"
-              v-model="responsible"
+              v-model="responsiblePerson"
               wrapperClass="mb-4"
           />
           <MDBTextarea
@@ -121,10 +121,17 @@
 </template>
 
 <script>
-import {MDBBtn, MDBCheckbox, MDBCol, MDBInput, MDBTextarea,} from "mdb-vue-ui-kit";
-import {ref, watch, computed} from "vue";
-import {useStore} from "vuex";
-import {useField, useForm} from "vee-validate";
+import {
+  MDBBtn, 
+  MDBCheckbox, 
+  MDBCol, 
+  MDBInput, 
+  MDBTextarea,} from 'mdb-vue-ui-kit'
+import { ref } from 'vue'
+import { useStore } from 'vuex'
+import { useField, useForm } from 'vee-validate'
+import * as yup from 'yup'
+import moment from 'moment'
 
 
 export default {
@@ -137,7 +144,7 @@ export default {
   },
   setup() {
     // Работа с календарями
-    const date = new Date();
+    const date = new Date()
     const attrs = ref([
       {
         key: 'today',
@@ -163,48 +170,39 @@ export default {
         ],
       }
     ])
-    let dateForm = date.toLocaleDateString();
-    const selectedDay = ref(null)
+    const selectedDay = ref({
+      id: moment().format('YYYY/M/D')
+    })
     function dayClicked(day) {
       selectedDay.value = day
+      selectedDay.value.id = moment(selectedDay.value.id).format('YYYY/M/D')
     }
-    watch(selectedDay, (newValue, oldValue) => {
-      console.log(selectedDay)
-    })
-    // const connectingCalendars = computed(() => date.value = selectedDay.value)
-
-
-    // Отправка данныз на сервер
+    
+    // Отправка данных на сервер
     const {handleSubmit} = useForm()
-    const nameInCharge = ref("");
-    const store = useStore();
-    // const {selectedDay.value} = useField('date')
-    const {value: nameTask} = useField('nameTask')
-    const {value: responsible} = useField('responsible')
-    const {value: descriptionTask} = useField('descriptionTask')
-    const onSumbit = handleSubmit(async values => {
-      await store.dispatch('tasks/noteInCalendar', values)
+    const nameInCharge = ref('')
+    const store = useStore()
+    const {value: nameTask} = useField('nameTask', yup.string().required('Это поле должно быть обязательно'))
+    const {value: responsiblePerson} = useField('responsiblePerson', yup.string())
+    const {value: descriptionTask} = useField('descriptionTask', yup.string())
+    const onSubmit = handleSubmit(async values => {
+      await store.dispatch('tasks/noteInCalendar', {...values, date: selectedDay.value.id})
     })
-
 
     return {
       nameTask,
       nameInCharge,
       descriptionTask,
-      responsible,
+      responsiblePerson,
       date,
-      onSumbit,
+      onSubmit,
       attrs,
-      dateForm,
       scheduledTasks,
       selectedDay,
       dayClicked,
-      // connectingCalendars,
-    };
-  }
-  ,
+    }
+  },
 }
-;
 </script>
 
 <style scoped>

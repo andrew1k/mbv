@@ -67,7 +67,7 @@
           </div>
           <div class="row px-2">
             <div class="col px-2 py-3">
-              <button class="btn bg-warning px-3" type="submit">Сохранить</button>
+              <button class="btn bg-warning px-3" type="submit" :disabled="isSubmitting">Сохранить</button>
             </div>
           </div>
         </form>
@@ -78,18 +78,18 @@
 
 <script>
 import SettingsMenu from '@/views/Settings/SettingsMenu'
-import {useField, useForm} from "vee-validate";
-import * as yup from "yup";
-import store from "@/store";
+import {useField, useForm} from 'vee-validate'
+import * as yup from 'yup'
+import store from '@/store'
 
 export default {
   setup() {
-    const firstName =  localStorage.getItem('first-name')
+    const firstName =  localStorage.getItem('firstName')
     const email = localStorage.getItem('email')
-    const secondName = localStorage.getItem('second-name')
-    const phoneNumber = localStorage.getItem('phone-number')
-    const birthDate = ("" + (new Date(+(localStorage.getItem('birth-date')))).toISOString()).replace(/^([^T]+)T(.+)$/, '$1')
-    const {handleSubmit} = useForm()
+    const secondName = localStorage.getItem('secondName')
+    const phoneNumber = localStorage.getItem('phoneNumber')
+    const birthDate = localStorage.getItem('birthDate')
+    const {handleSubmit, isSubmitting} = useForm()
     // Валидация для поля fistName
     const {value: firstNameValue, errorMessage: firstNameError, handleBlur: firstNameBlur} = useField(
         'firstName',
@@ -125,7 +125,7 @@ export default {
       secondNameValue, secondNameError, secondNameBlur,
       birthDateValue, birthDateError, birthDateBlur,
       phoneNumberValue, phoneNumberError, phoneNumberBlur,
-      onSubmit,
+      onSubmit, isSubmitting,
     }
   }, components: {
     SettingsMenu,
