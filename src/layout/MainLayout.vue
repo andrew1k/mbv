@@ -1,7 +1,7 @@
 <template>
   <the-navbar></the-navbar>
   <MDBContainer fluid class="container-fluid">
-    <div class="m-1 p-2 bg-light">
+    <div class="m-1 bg-light">
       <router-view />
     </div>
   </MDBContainer>
