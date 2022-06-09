@@ -7,7 +7,7 @@
         <th>Телефон</th>
         <th>Позиция</th>
         <th>
-          <MDBBtn size="sm" outline="dark" floating @click="loadUsers">
+          <MDBBtn size="sm" outline="dark" @click="loadUsers">
             <MDBIcon icon="sync"/>
           </MDBBtn>
         </th>
@@ -18,6 +18,7 @@
           v-for="user in appUsers"
           :key="user.localId"
           :user="user"
+
       ></app-table-row>
       </tbody>
     </MDBTable>

@@ -10,6 +10,8 @@ export default {
   mutations: {
     setData(state, payload) {
       state.usersData = {...payload}
+      localStorage.setItem('servTeam', payload.servTeam)
+      localStorage.setItem('authLevel', payload.authLevel)
     }
   },
   actions: {
@@ -18,8 +20,11 @@ export default {
       await commit('setData', dbData)
     },
     async saveData({commit}, payload) {
-      const toDB = {}
-      await axiosDBRequests.put(`/appUsers/${payload.idToken}.json?auth=${store.getters['auth/idToken']}`, toDB)
+      const toDB = {
+        authLevel: payload.authLevel,
+        servTeam: payload.servTeam,
+      }
+      await axiosDBRequests.patch(`/appUsers/${payload.localId}.json?auth=${store.getters['auth/idToken']}`, toDB)
       await commit('setData', toDB)
     }
   },
