@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
-import auth from "@/store/auth.js";
-import tasks from "./tasks";
+import auth from '@/store/auth.module'
+import tasks from './tasks.module'
+import usersData from './usersData.module'
 
 export default createStore({
   state: {
@@ -12,5 +13,6 @@ export default createStore({
   modules: {
     auth,
     tasks,
+    usersData,
   }
 })

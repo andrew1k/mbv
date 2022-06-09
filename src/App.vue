@@ -24,14 +24,8 @@ export default {
 
 <style>
 body {
-  font-family: Tahoma;
+  font-family: Tahoma, serif;
   background: rgb(56,143,252);
   background: linear-gradient(90deg, rgba(56,143,252,1) 0%, rgba(0,35,210,1) 100%);
-}
-.bg-warning {
-  background: #FFA10D;
-}
-#app {
-  font-family: Roboto, Helvetica, Arial, sans-serif;
 }
 </style>

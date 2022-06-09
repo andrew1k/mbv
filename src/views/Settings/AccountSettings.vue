@@ -1,5 +1,5 @@
 <template>
-  <div class="my-1 p-3 bg-white" style="border-radius: 8px">
+
     <div class="row">
       <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
         <settings-menu acc-prop="true"></settings-menu>
@@ -73,7 +73,6 @@
         </form>
       </div>
     </div>
-  </div>
 </template>
 
 <script>

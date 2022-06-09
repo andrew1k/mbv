@@ -2,11 +2,10 @@
   <tr>
     <td>
       <p class="fw-bold mb-1">{{ `${user.firstName} ${user.secondName}` }}</p>
-      <p class="text-muted mb-0">{{ user.email }}</p>
+      <a class="text-muted mb-0" :href="`mailto:${ user.email }`">{{ user.email }}</a>
     </td>
     <td>{{ user.birthDate }}</td>
-    <td>{{ user.phoneNumber }}
-    </td>
+    <td><a :href="`tel:${ user.phoneNumber }`">{{ user.phoneNumber }}</a></td>
     <td>
       <p class="fw-bold mb-1">{{ user.authLevel }}</p>
       <p class="text-muted mb-0">{{ user.servTeam }}</p>
@@ -36,9 +35,9 @@
       <MDBCollapse
           id="collapsibleContent1"
           v-model="collapse1">
-        <form class="row" @submit.prevent>
+        <form class="row" @submit.prevent="saveData">
           <div class="col">
-            <select class="form-select" v-model="authLevel">
+            <select class="form-select" v-model="user.authLevel">
               <option value="1">Админ</option>
               <option value="2">Служитель</option>
               <option value="3">Ведущий</option>
@@ -89,8 +88,10 @@ import {
   MDBIcon,
 } from 'mdb-vue-ui-kit'
 import {ref} from 'vue'
+// import {useForm, useField} from 'vee-validate'
 
 export default {
+  emits: ['sendOneMessageForTelegram', 'saveData'],
   props: ['user'],
   components: {
     MDBBtn,
@@ -114,6 +115,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
