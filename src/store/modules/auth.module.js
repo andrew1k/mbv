@@ -1,4 +1,5 @@
 import axios from 'axios'
+import moment from 'moment'
 
 export default {
   namespaced: true,
@@ -92,11 +93,11 @@ export default {
           email: payload.email,
           firstName: payload.firstName,
           secondName: payload.secondName,
-          birthDate: Date.parse(payload.birthDate),
+          birthDate: moment(`${payload.birthDate}`, 'YYYY-MM-DD').format('YYYY/MM/DD'),
           phoneNumber: '+7',
           personGender: payload.personGender,
-          authLevel: 5,
-          servTeam: 'guest',
+          authLevel: 'Guest',
+          servTeam: 'Guest',
         }
         await axios.put(`${process.env.VUE_APP_DB_URL}/appUsers/${data.localId}.json?auth=${data.idToken}`, toDB)
         await commit('setAppUser', toDB)

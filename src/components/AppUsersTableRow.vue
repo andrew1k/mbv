@@ -38,20 +38,20 @@
         <form class="row" @submit="saveData">
           <div class="col">
             <select class="form-select form-select-sm" v-model="authLevel">
-              <option value="1">Админ</option>
-              <option value="2">Служитель</option>
-              <option value="3">Ведущий</option>
-              <option value="4">Молодежный ведущий</option>
-              <option value="5">Гость</option>
+              <option value="Админ">Админ</option>
+              <option value="Служитель">Служитель</option>
+              <option value="Ведущий">Ведущий</option>
+              <option value="Молодежный ведущий">Молодежный ведущий</option>
+              <option value="Guest">Guest</option>
             </select>
           </div>
           <div class="col">
             <select class="form-select form-select-sm col" v-model="servTeam">
-              <option value="1">Моё Поколение</option>
-              <option value="2">Группа Прославления</option>
-              <option value="3">Стойка Информации</option>
-              <option value="4">Группа порядка</option>
-              <option value="5">Служение в кафе</option>
+              <option value="Моё Поколение">Моё Поколение</option>
+              <option value="Группа Прославления">Группа Прославления</option>
+              <option value="Стойка Информации">Стойка Информации</option>
+              <option value="Группа порядка">Группа порядка</option>
+              <option value="Служение в кафе">Служение в кафе</option>
             </select>
           </div>
           <div class="col">
@@ -95,7 +95,11 @@ import store from '@/store'
 import axios from 'axios'
 
 export default {
-  props: ['user'],
+  props: {user: {
+    type: Object,
+    required: true,
+    },
+  },
   components: {
     MDBBtn,
     MDBCollapse,

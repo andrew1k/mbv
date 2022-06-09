@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from './views/Home.vue'
-import store from './store'
+import Home from '../views/Home.vue'
+import store from '../store'
 
 // Все компоненты, кроме home, лучше LazyLoad
 // component: () => import('@/')
@@ -16,7 +16,7 @@ const routes = [
   },  {
     path: '/accountSettings',
     name: 'Settings',
-    component: () => import('@/views/Settings/AccountSettings.vue'),
+    component: () => import('@/views/settings/AccountSettings.vue'),
     meta: {
       layout: 'settings',
       sLayout: 'account',
@@ -25,7 +25,7 @@ const routes = [
   },{
     path: '/authSettings',
     name: 'authSettings',
-    component: () => import('@/views/Settings/AuthSettings.vue'),
+    component: () => import('@/views/settings/AuthSettings.vue'),
     meta: {
       layout: 'settings',
       sLayout: 'auth',
@@ -34,7 +34,7 @@ const routes = [
   },{
     path: '/deleteAccount',
     name: 'deleteAccount',
-    component: () => import('@/views/Settings/DeleteAccountSettings.vue'),
+    component: () => import('@/views/settings/DeleteAccountSettings.vue'),
     meta: {
       layout: 'settings',
       sLayout: 'delete-account',
@@ -59,7 +59,7 @@ const routes = [
   },{
     path: '/appUsers',
     name: 'AppUsers',
-    component: () => import('@/views/users/AppUsers'),
+    component: () => import('@/views/users/AppUsersTable'),
     meta: {
       layout: 'main',
       auth: true,
@@ -68,7 +68,7 @@ const routes = [
   {
     path: '/auth',
     name: 'Auth',
-    component: () => import('./views/auth/Auth.vue'),
+    component: () => import('../views/auth/Auth.vue'),
     meta: {
       layout: 'auth',
       auth: false,
@@ -112,13 +112,13 @@ const routes = [
   },
 ]
 
-const router = createRouter({
+const index = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
 
 // Проверка регистрации/входа перед редиректом в главное меню
-router.beforeEach((to, from , next) => {
+index.beforeEach((to, from , next) => {
   // boolean переменная запрашивающая нужна ли регистрация для модуля
   const requireAuth = to.meta.auth
   // boolean переменная передающая, есть ли jwt-token
@@ -136,4 +136,4 @@ router.beforeEach((to, from , next) => {
   }
 })
 
-export default router
+export default index

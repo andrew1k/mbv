@@ -35,13 +35,13 @@
 
 <script>
 import store from '@/store'
-import router from '@/router'
+import index from '@/router'
 export default {
   props: ['authProp', 'delProp', 'accProp'],
   setup() {
     const logout = async () => {
       await store.dispatch('auth/logout')
-      await router.push('/login')
+      await index.push('/login')
     }
     return {
       logout,

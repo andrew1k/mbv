@@ -9,27 +9,28 @@
                 <h4 class="nav-link text-black active bg-warning">Войти</h4>
               </li>
               <li class="nav-item mx-3">
-              <h4>
-                <router-link to="/signup" class="nav-link text-dark">Создать аккаунт</router-link>
-              </h4>
+                <h4>
+                  <router-link to="/signup" class="nav-link text-dark">Создать аккаунт</router-link>
+                </h4>
               </li>
             </ul>
             <div class="card-body p-4">
               <div class="form-outline py-2 my-4">
-                <MDBInput label="Email" type="email" v-model="eValue" @blur="eBlur" />
+                <MDBInput label="Email" type="email" v-model="eValue" @blur="eBlur"/>
                 <small v-if="eError" class="text-danger">{{ eError }}</small>
               </div>
 
               <div class="form-outline py-2 my-4">
-                <MDBInput label="Пароль" type="password" v-model="pValue" @blur="pBlur" />
+                <MDBInput label="Пароль" type="password" v-model="pValue" @blur="pBlur"/>
                 <small v-if="pError" class="text-danger">{{ pError }}</small>
               </div>
               <div class="row align-items-end align-content-end text-end mb-0">
                 <!-- отключается во время isSubmitting и при многом повторении -->
                 <div class="col text-start">
-                <button class="btn text-black px-4 bg-warning" type="submit" :disabled="isSubmitting || isTooAttempts || pError || eError">
-                  Войти
-                </button>
+                  <button class="btn text-black px-4 bg-warning" type="submit"
+                          :disabled="isSubmitting || isTooAttempts || pError || eError">
+                    Войти
+                  </button>
                 </div>
                 <div class="col">
                 <span>
@@ -49,11 +50,11 @@
 </template>
 
 <script>
-import {useStore} from "vuex";
-import {useRouter} from "vue-router";
-import {useField, useForm} from "vee-validate";
-import * as yup from "yup";
-import {computed, watch} from "vue";
+import {useStore} from 'vuex'
+import {useRouter} from 'vue-router'
+import {useField, useForm} from 'vee-validate'
+import * as yup from 'yup'
+import {computed, watch} from 'vue'
 import {MDBInput} from 'mdb-vue-ui-kit'
 
 
@@ -64,19 +65,19 @@ export default {
     const {handleSubmit, isSubmitting, submitCount} = useForm()
     // Валидация для поля email
     const {value: eValue, errorMessage: eError, handleBlur: eBlur} = useField(
-        'email',
-        yup.string()
-            .trim() // Delete spaces
-            .required('Это поле обязательно')
-            .email('Необходимо ввести корректный email')) // именно email
+      'email',
+      yup.string()
+        .trim() // Delete spaces
+        .required('Это поле обязательно')
+        .email('Необходимо ввести корректный email')) // именно email
 
     // Валидация для поля password
     const {value: pValue, errorMessage: pError, handleBlur: pBlur} = useField(
-        'password',
-        yup.string()
-            .trim() // Delete spaces
-            .required('Это поле обязательно')
-            .min(6, 'Необходимо не менее 6 символов')) // minimum 6 symbols
+      'password',
+      yup.string()
+        .trim() // Delete spaces
+        .required('Это поле обязательно')
+        .min(6, 'Необходимо не менее 6 символов')) // minimum 6 symbols
 
     // при submit выполняется handleSubmit валидирующий формы на соответствие требованиям
     const onSubmit = handleSubmit(async values => {
@@ -107,7 +108,7 @@ export default {
     }
   }, components: {
     MDBInput,
-  }
+  },
 }
 </script>
 

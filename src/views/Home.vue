@@ -1,5 +1,5 @@
 <template>
-    <div class="row p-2">
+    <div class="row px-3 py-1">
       Something here
     </div>
 </template>

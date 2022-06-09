@@ -76,10 +76,11 @@
 </template>
 
 <script>
-import SettingsMenu from '@/views/Settings/SettingsMenu'
+import SettingsMenu from '@/views/settings/SettingsMenu'
 import {useField, useForm} from 'vee-validate'
 import * as yup from 'yup'
 import store from '@/store'
+import moment from 'moment'
 
 export default {
   setup() {
@@ -87,7 +88,7 @@ export default {
     const email = localStorage.getItem('email')
     const secondName = localStorage.getItem('secondName')
     const phoneNumber = localStorage.getItem('phoneNumber')
-    const birthDate = localStorage.getItem('birthDate')
+    const birthDate = moment(`${localStorage.getItem('birthDate')}`, 'YYYY/MM/DD').format('YYYY-MM-DD')
     const {handleSubmit, isSubmitting} = useForm()
     // Валидация для поля fistName
     const {value: firstNameValue, errorMessage: firstNameError, handleBlur: firstNameBlur} = useField(

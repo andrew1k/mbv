@@ -1,6 +1,6 @@
 import axios from 'axios'
 // import store from '@/store'
-// import router from '@/router'
+// import index from '@/index'
 
 const api = axios.create({
     baseURL: process.env.VUE_APP_DB_URL
@@ -9,7 +9,7 @@ const api = axios.create({
 api.interceptors.response.use(null, error => {
     if (error.response.status === 401) {
         // store.dispatch('auth/updateToken')
-        // router.push('/login')
+        // index.push('/login')
     }
     return Promise.reject(error)
 })

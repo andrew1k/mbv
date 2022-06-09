@@ -1,41 +1,37 @@
 <template>
-  <div class="m-2 p-2 bg-white" style="border-radius: 8px">
-    <div class="row">
-      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 margin-calendar">
-        <v-date-picker
-          v-model="date"
-          :columns="$screens({ default: 1, lg: 2 })"
-          :rows="$screens({ default: 1, lg: 2 })"
-          :is-expanded="$screens({ default: true, lg: false })"
-          :min-date="new Date()"
-          :attributes="attrs"
-          @dayclick="dayClicked"
-        ></v-date-picker>
-      </div>
-      <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
-        <task-form v-if="!changeTask"></task-form>
-        <change-task 
+  <div class="row p-1">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 margin-calendar">
+      <v-date-picker
+        v-model="date"
+        :columns="$screens({ default: 1, lg: 2, md: 2 })"
+        :rows="$screens({ default: 1, lg: 2 })"
+        :is-expanded="$screens({ default: true, lg: false })"
+        :min-date="new Date()"
+        :attributes="attrs"
+        @dayclick="dayClicked">
+      </v-date-picker>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
+      <task-form v-if="!changeTask"></task-form>
+      <change-task
         @changeTaskCancel="callCancellation"
         @dateFromCalendar="dayClicked"
         :date="date"
         v-else>
-        </change-task>
-      </div>
+      </change-task>
     </div>
   </div>
-  <div class="m-2 p-2 bg-white" style="border-radius: 8px">
-    <div class="row px-3 py-2">
-      <div class="col py-3">
-        <h4>Задачи на {{ selectedDay.id }}</h4>
-        <p>Вы можете изменить задачу или удалить</p>
-        <h5 class="d-flex justify-content-center m-5">
-          На этот день не запланировано задач
-        </h5>
-      </div>
+  <div class="row px-3 py-2">
+    <div class="col py-3">
+      <h4>Задачи на {{ selectedDay.id }}</h4>
+      <p>Вы можете изменить задачу или удалить</p>
+      <h5 class="d-flex justify-content-center m-5">
+        На этот день не запланировано задач
+      </h5>
+    </div>
 
-      <div class="row d-flex justify-content-around">
-        <task-for-day @changingTheTask="callCancellationForDay"></task-for-day>
-      </div>
+    <div class="row d-flex justify-content-around">
+      <task-for-day @changingTheTask="callCancellationForDay"></task-for-day>
     </div>
   </div>
 </template>
@@ -47,12 +43,12 @@ import {
   MDBCol,
   MDBInput,
   MDBTextarea,
-} from "mdb-vue-ui-kit";
-import { ref, watch} from "vue";
-import moment from "moment";
-import TaskForm from "@/views/calendar/TaskForm";
-import ChangeTask from "@/views/calendar/ChangeTask";
-import TaskForDay from './TaskForDay.vue';
+} from 'mdb-vue-ui-kit'
+import {ref} from 'vue'
+import moment from 'moment'
+import TaskForm from '@/components/calendar/CalendarTaskForm'
+import ChangeTask from '@/components/calendar/CalendarChangeTask'
+import TaskForDay from '../../components/calendar/CalendarTaskForDay.vue'
 
 export default {
   components: {
@@ -71,7 +67,7 @@ export default {
     const attrs = ref([
       {
         key: 'today',
-        highlight: "red",
+        highlight: 'red',
         dates: new Date(),
       },
       {
@@ -81,7 +77,7 @@ export default {
           new Date(2022, 4, 30),
           new Date(2022, 5, 7),
         ],
-      }
+      },
     ])
     const scheduledTasks = ref([
       {
@@ -91,36 +87,35 @@ export default {
           new Date(2022, 4, 30),
           new Date(2022, 5, 7),
         ],
-      }
+      },
     ])
     const selectedDay = ref({
-      id: moment().format("YYYY/M/D"),
-    });
-   
+      id: moment().format('YYYY/M/D'),
+    })
+
 
     function dayClicked(day) {
-      selectedDay.value = day;
-      selectedDay.value.id = moment(selectedDay.value.id).format("YYYY/M/D");
+      selectedDay.value = day
+      selectedDay.value.id = moment(selectedDay.value.id).format('YYYY/M/D')
       console.log(selectedDay)
     }
 
-    
-    
 
-    const changeTask = ref(false);
+    const changeTask = ref(false)
+
     function callCancellation() {
       changeTask.value = false
     }
+
     function callCancellationForDay() {
       changeTask.value = true
     }
 
 
-
-    function connectingDates(newDay) {
-      selectedDay.value = newDay;
-      selectedDay.value.id = moment(selectedDay.value.id).format("YYYY/M/D");
-    }
+    // function connectingDates(newDay) {
+    //   selectedDay.value = newDay;
+    //   selectedDay.value.id = moment(selectedDay.value.id).format("YYYY/M/D");
+    // }
 
     // Отправка данных на сервер
     // const {handleSubmit} = useForm()
@@ -143,25 +138,23 @@ export default {
       attrs,
       scheduledTasks,
       selectedDay,
-      dayClicked,
       changeTask,
       callCancellation,
       callCancellationForDay,
-      connectingDates, 
-      dayClicked
-    };
+      dayClicked,
+    }
   },
-};
+}
 </script>
 
 <style scoped>
-.blockSize {
-  height: 7em;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 4;
-  overflow: hidden;
-}
+/*.blockSize {*/
+/*  height: 7em;*/
+/*  display: -webkit-box;*/
+/*  -webkit-box-orient: vertical;*/
+/*  -webkit-line-clamp: 4;*/
+/*  overflow: hidden;*/
+/*}*/
 
 @media (min-width: 1200px) and (max-width: 1400px) {
   .margin-calendar {

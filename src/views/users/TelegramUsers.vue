@@ -48,7 +48,7 @@
 
 <script>
 import {MDBTable, MDBIcon, MDBBtn, MDBTextarea, MDBCheckbox} from 'mdb-vue-ui-kit'
-import AppTableRow from "@/components/AppTableRow";
+import AppTableRow from "@/components/AppUsersTableRow";
 // import axios from "axios";
 
 export default {

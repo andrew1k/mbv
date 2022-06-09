@@ -26,7 +26,7 @@
             Управление
           </MDBDropdownToggle>
           <MDBDropdownMenu>
-            <!--            <MDBDropdownItem><router-link class="dropdown-item" to="/telegramUsers">Телеграм</router-link></MDBDropdownItem>-->
+            <!--            <MDBDropdownItem><index-link class="dropdown-item" to="/telegramUsers">Телеграм</index-link></MDBDropdownItem>-->
             <MDBDropdownItem>
               <router-link class="dropdown-item" to="/calendar">Календарь</router-link>
             </MDBDropdownItem>

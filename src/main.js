@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import './registerServiceWorker'
-import router from './router.js'
+import index from './router'
 import store from './store'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
@@ -12,5 +12,5 @@ import VCalendar from 'v-calendar'
 createApp(App)
     .use(VCalendar, {})
     .use(store)
-    .use(router)
+    .use(index)
     .mount('#app')
