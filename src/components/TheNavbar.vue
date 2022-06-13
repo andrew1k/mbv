@@ -12,13 +12,13 @@
     <MDBCollapse v-model="collapse5" id="navbarRightAlign">
       <MDBNavbarNav right class="mb-2 mb-lg-0">
         <!-- Right links -->
-        <MDBNavbarItem to="#">
-          <router-link to="/" class="nav-item text-muted">
+        <MDBNavbarItem to="/">
+<!--          <router-link to="/" class="nav-item text-muted">-->
             Главная
-          </router-link>
+<!--          </router-link>-->
         </MDBNavbarItem>
         <!-- Navbar dropdown -->
-        <MDBDropdown class="nav-item" v-model="dropdown8">
+        <MDBDropdown class="nav-item" v-model="dropdown8" v-if="authLevel === 10000">
           <MDBDropdownToggle
             tag="a"
             class="nav-link"
@@ -26,7 +26,6 @@
             Управление
           </MDBDropdownToggle>
           <MDBDropdownMenu>
-            <!--            <MDBDropdownItem><index-link class="dropdown-item" to="/telegramUsers">Телеграм</index-link></MDBDropdownItem>-->
             <MDBDropdownItem>
               <router-link class="dropdown-item" to="/calendar">Календарь</router-link>
             </MDBDropdownItem>
@@ -75,6 +74,8 @@ import {
   MDBDropdownItem,
 } from 'mdb-vue-ui-kit'
 import {ref} from 'vue'
+import axios from '@/axios/dbRequests'
+import store from '@/store'
 
 export default {
   components: {
@@ -94,10 +95,17 @@ export default {
     const dropdown3 = ref(false)
     const collapse5 = ref(false)
     const dropdown8 = ref(false)
+    const authLevel = ref()
+    async function getAuthLevel() {
+      const {data} = await axios.get(`/appUsers/${store.getters['auth/localId']}/authLevel.json?auth=${store.getters['auth/idToken']}`)
+      authLevel.value = +data
+    }
+    getAuthLevel()
     return {
       collapse5,
       dropdown8,
       dropdown3,
+      authLevel,
     }
   },
 }

@@ -194,6 +194,9 @@ export default {
     idToken(state) {
       return state.idToken
     },
+    localId(state) {
+      return state.localId
+    },
     isAuthed(_, getters) {
       return !!getters.idToken
     },

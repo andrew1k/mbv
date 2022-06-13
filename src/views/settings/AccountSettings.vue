@@ -11,7 +11,7 @@
             <p>Вы можете добавить информацию о себе или изменить существующую</p>
           </div>
         </div>
-        <form @submit="onSubmit">
+        <form @submit.prevent="onSubmit">
           <div class="row px-2">
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 p-2">
               <label for="firstName" class="form-label">Имя</label>

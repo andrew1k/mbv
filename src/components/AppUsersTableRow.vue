@@ -38,11 +38,11 @@
         <form class="row" @submit="saveData">
           <div class="col">
             <select class="form-select form-select-sm" v-model="authLevel">
-              <option value="Админ">Админ</option>
-              <option value="Служитель">Служитель</option>
-              <option value="Ведущий">Ведущий</option>
-              <option value="Молодежный ведущий">Молодежный ведущий</option>
-              <option value="Guest">Guest</option>
+              <option value="10000">Админ</option>
+              <option value="2000">Служитель</option>
+              <option value="300">Ведущий</option>
+              <option value="40">Молодежный ведущий</option>
+              <option value="5">Guest</option>
             </select>
           </div>
           <div class="col">

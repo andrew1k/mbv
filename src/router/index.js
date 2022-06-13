@@ -2,8 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import store from '../store'
 
-// Все компоненты, кроме home, лучше LazyLoad
-// component: () => import('@/')
 const routes = [
   {
     path: '/',
@@ -112,21 +110,18 @@ const routes = [
   },
 ]
 
-const index = createRouter({
+const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
 
-// Проверка регистрации/входа перед редиректом в главное меню
-index.beforeEach((to, from , next) => {
-  // boolean переменная запрашивающая нужна ли регистрация для модуля
+
+router.beforeEach((to, from , next) => {
   const requireAuth = to.meta.auth
-  // boolean переменная передающая, есть ли jwt-token
   const isAuthed = store.getters['auth/isAuthed']
-  // если нужна регистрация и есть токен next()
+
   if (requireAuth && isAuthed) {
     next()
-  // если нужна регистрация и нет токена то перенаправление в auth
   } else if (requireAuth && !isAuthed) {
     next('/login?message=needAuthorization')
   } else if (!requireAuth && isAuthed) {
@@ -136,4 +131,4 @@ index.beforeEach((to, from , next) => {
   }
 })
 
-export default index
+export default router
