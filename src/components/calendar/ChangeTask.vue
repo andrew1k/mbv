@@ -1,4 +1,5 @@
 <template>
+
   <div class="row px-3">
     <div class="d-flex flex-column">
       <div class="col py-3">
@@ -12,10 +13,10 @@
           <MDBCol>
             <v-date-picker
               v-model="date"
-              disabled
               :min-date="new Date()"
               :attributes="scheduledTasks"
-              @dayclick="NewDayClicked">
+              @dayclick="NewDayClicked"
+            >
               <template v-slot="{ inputValue, togglePopover }">
                 <input
                   class="bg-white border px-2 py-1 rounded col-12"
