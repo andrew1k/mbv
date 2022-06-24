@@ -13,13 +13,31 @@
         ></v-date-picker>
       </div>
       <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
-        <task-form
-            v-if="(formTask || changeTask)"
-            :changeTask="changeTask"
-            :calendar-date="date"
-            @update="updateDate"
-            @changeButtonCancel="changeTask=false"
-        ></task-form>
+        <div class="row px-3">
+          <div class="d-flex flex-column">
+            <div class="col py-3">
+              <h4>Создать задачу</h4>
+              <p>Вы можете добавить задачу или изменить существующую</p>
+            </div>
+            <MDBCol class="d-flex justify-content-end align-items-end" v-if="buttonCreate">
+              <MDBBtn
+                  @click="formTask = true; buttonCreate = false"
+                  color="btn bg-warning"
+                  type="submit"
+              ><i class="fas fa-plus padding-right"></i>Создать
+              </MDBBtn>
+            </MDBCol>
+          </div>
+          <form-task></form-task>
+        </div>
+
+<!--        <task-form v-if="!changeTask"></task-form>-->
+<!--        <change-task -->
+<!--        @changeTaskCancel="callCancellation"-->
+<!--        @dateFromCalendar="dayClicked"-->
+<!--        :date="date"-->
+<!--        v-else>-->
+<!--        </change-task>-->
       </div>
     </div>
   </div>
@@ -34,9 +52,7 @@
       </div>
 
       <div class="row d-flex justify-content-around">
-        <task-for-day
-            @changingTheTask="callChangeForm"
-        ></task-for-day>
+        <task-for-day @changingTheTask="callCancellationForDay"></task-for-day>
       </div>
     </div>
   </div>
@@ -55,9 +71,11 @@ import moment from "moment";
 import TaskForm from "@/views/calendar/TaskForm";
 import ChangeTask from "@/views/calendar/ChangeTask";
 import TaskForDay from './TaskForDay.vue';
+import FormTask from "@/components/calendar/FormTask";
 
 export default {
   components: {
+    FormTask,
     ChangeTask,
     TaskForm,
     MDBInput,
@@ -69,10 +87,7 @@ export default {
   },
   setup() {
     // Работа с календарями
-    /**
-     * ref - реактивность, происходит изменение
-    */
-    let date = ref(new Date())
+    const date = new Date()
     const attrs = ref([
       {
         key: 'today',
@@ -101,28 +116,42 @@ export default {
     const selectedDay = ref({
       id: moment().format("YYYY/M/D"),
     });
+   
 
     function dayClicked(day) {
       selectedDay.value = day;
       selectedDay.value.id = moment(selectedDay.value.id).format("YYYY/M/D");
+      console.log(selectedDay)
     }
 
+    
+    
 
-    const formTask = ref(true);
     const changeTask = ref(false);
-    function callChangeForm() {
+    function callCancellation() {
+      changeTask.value = false
+    }
+    function callCancellationForDay() {
       changeTask.value = true
     }
-    /**
-     * получем дату из дочернего компонента и просваеваем календарю в родительском(этом компоненте)
-     */
-    function updateDate(newDate) {
-      // console.log(newDate.value)
-      date.value = newDate.value
+
+
+
+    function connectingDates(newDay) {
+      selectedDay.value = newDay;
+      selectedDay.value.id = moment(selectedDay.value.id).format("YYYY/M/D");
     }
 
-
-
+    // Отправка данных на сервер
+    // const {handleSubmit} = useForm()
+    // const nameInCharge = ref('')
+    // const store = useStore()
+    // const {value: nameTask} = useField('nameTask', yup.string().required('Это поле должно быть обязательно'))
+    // const {value: responsiblePerson} = useField('responsiblePerson', yup.string())
+    // const {value: descriptionTask} = useField('descriptionTask', yup.string())
+    // const onSubmit = handleSubmit(async values => {
+    //   await store.dispatch('tasks/noteInCalendar', {...values, date: selectedDay.value.id})
+    // })
 
     return {
       // nameTask,
@@ -135,11 +164,11 @@ export default {
       scheduledTasks,
       selectedDay,
       dayClicked,
-      formTask,
       changeTask,
-      callChangeForm,
-      // connectingDates,
-      updateDate
+      callCancellation,
+      callCancellationForDay,
+      connectingDates, 
+      dayClicked
     };
   },
 };
